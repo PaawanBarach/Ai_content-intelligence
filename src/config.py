@@ -12,6 +12,12 @@ load_dotenv()
 
 class Config:
     """Enhanced configuration with API health monitoring"""
+    @staticmethod
+    def _get(name: str, default: str = "") -> str:
+        try:
+            return st.secrets.get(name, os.getenv(name, default))
+        except Exception:
+            return os.getenv(name, default)
     
     # API Configuration
     OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
